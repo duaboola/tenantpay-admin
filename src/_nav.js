@@ -151,7 +151,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'List Users',
-    to: '/buttons',
+    to: '/user/list',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
   },
   {
@@ -163,7 +163,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Edit User',
-    to: '/buttons',
+    to: '/user/edit',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
   },
   {

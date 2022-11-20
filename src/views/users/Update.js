@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import axios from 'axios'
 import {
   CButton,
   CCard,
@@ -13,14 +14,21 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
-// import { PostData } from '../../services/PostData'
-// import { Navigate } from 'react-router-dom'
-import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
-class Createuser extends Component {
+export function withRouter(Children) {
+  // eslint-disable-next-line react/display-name
+  return (props) => {
+    const match = { params: useParams() }
+    return <Children {...props} match={match} />
+  }
+}
+
+class UserUpdate extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      id: '',
       email: '',
       password: '',
       fname: '',
@@ -28,15 +36,52 @@ class Createuser extends Component {
       cpr: '',
       mobile: '',
       usertype: '',
-      users: [],
     }
-    // this.createuser = this.createuser.bind(this)
-    // this.onChange = this.onChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleFormSubmit(event) {
-    event.preventDefault()
+  componentDidMount() {
+    axios
+      .get(
+        'http://192.168.100.96:8888/tenantpay/api/user/users.php/${id}' +
+          // eslint-disable-next-line react/prop-types
+          this.props.match.params.id,
+      )
 
+      .then((response) => response.data)
+      .then((data) => {
+        // handle success
+        console.log(data)
+        console.log(data.id)
+        this.setState({
+          id: data.id,
+          email: data.email,
+          password: data.password,
+          fname: data.fname,
+          lname: data.lname,
+          cpr: data.cpr,
+          mobile: data.mobile,
+          usertype: data.usertype,
+        })
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error)
+      })
+      .then(function () {
+        // always executed
+      })
+  }
+
+  handleChange(event) {
+    const state = this.state
+    state[event.target.name] = event.target.value
+    this.setState(state)
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
     let formData = new FormData()
     formData.append('email', this.state.email)
     formData.append('password', this.state.password)
@@ -48,14 +93,19 @@ class Createuser extends Component {
 
     axios({
       method: 'post',
-      url: 'http://192.168.100.96:8888/tenantpay/api/user/users.php',
+      url:
+        'http://192.168.100.96:8888/tenantpay/api/user/users.php/?id=' +
+        // eslint-disable-next-line react/prop-types
+        this.props.match.params.id,
       data: formData,
       config: { headers: { 'Content-Type': 'multipart/form-data' } },
     })
       .then(function (response) {
         //handle success
         console.log(response)
-        alert('New user Successfully Added.')
+        if (response.status === 200) {
+          alert('User updated successfully.')
+        }
       })
       .catch(function (response) {
         //handle error
@@ -63,32 +113,7 @@ class Createuser extends Component {
       })
   }
 
-  // createuser() {
-  //   if (
-  //     this.state.email &&
-  //     this.state.password &&
-  //     this.state.fname &&
-  //     this.state.lname &&
-  //     this.state.cpr &&
-  //     this.state.mobile &&
-  //     this.state.usertype
-  //   ) {
-  //     PostData('createuser', this.state).then((result) => {
-  //       let responseJson = result
-  //       if (responseJson.userData) {
-  //         sessionStorage.setItem('usersData', JSON.stringify(responseJson))
-  //         this.setState({ redirectToReferrer: true })
-  //       } else alert(result.error)
-  //     })
-  //   }
-  // }
-  // onChange(e) {
-  //   this.setState({ [e.target.name]: e.target.value })
-  // }
   render() {
-    // if (this.state.redirectToReferrer || sessionStorage.getItem('usersData')) {
-    //   return <Navigate to={'/home'} />
-    // }
     return (
       <div className="bg-light d-flex flex-row align-items-center">
         <CContainer>
@@ -96,8 +121,8 @@ class Createuser extends Component {
             <CCol md={9} lg={7} xl={6}>
               <CCard className="mx-4">
                 <CCardBody className="p-4">
-                  <CForm>
-                    <h1>Create User</h1>
+                  <CForm onSubmit={this.handleSubmit}>
+                    <h1>Edit User</h1>
                     <p className="text-medium-emphasis">Fill the details</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>@</CInputGroupText>
@@ -107,7 +132,7 @@ class Createuser extends Component {
                         autoComplete="email"
                         className="form-control"
                         value={this.state.email}
-                        onChange={(e) => this.setState({ email: e.target.value })}
+                        onChange={this.handleChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
@@ -121,7 +146,7 @@ class Createuser extends Component {
                         autoComplete="new-password"
                         className="form-control"
                         value={this.state.password}
-                        onChange={(e) => this.setState({ password: e.target.value })}
+                        onChange={this.handleChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
@@ -134,7 +159,7 @@ class Createuser extends Component {
                         autoComplete="fname"
                         className="form-control"
                         value={this.state.fname}
-                        onChange={(e) => this.setState({ fname: e.target.value })}
+                        onChange={this.handleChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
@@ -147,7 +172,7 @@ class Createuser extends Component {
                         autoComplete="lname"
                         className="form-control"
                         value={this.state.lname}
-                        onChange={(e) => this.setState({ lname: e.target.value })}
+                        onChange={this.handleChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
@@ -160,7 +185,7 @@ class Createuser extends Component {
                         autoComplete="cpr"
                         className="form-control"
                         value={this.state.cpr}
-                        onChange={(e) => this.setState({ cpr: e.target.value })}
+                        onChange={this.handleChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
@@ -173,7 +198,7 @@ class Createuser extends Component {
                         autoComplete="mobile"
                         className="form-control"
                         value={this.state.mobile}
-                        onChange={(e) => this.setState({ mobile: e.target.value })}
+                        onChange={this.handleChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
@@ -186,13 +211,11 @@ class Createuser extends Component {
                         autoComplete="usertype"
                         className="form-control"
                         value={this.state.usertype}
-                        onChange={(e) => this.setState({ usertype: e.target.value })}
+                        onChange={this.handleChange}
                       />
                     </CInputGroup>
                     <div className="d-grid">
-                      <CButton color="success" onClick={(e) => this.handleFormSubmit(e)}>
-                        Create Account
-                      </CButton>
+                      <CButton color="success">Update Details</CButton>
                     </div>
                   </CForm>
                 </CCardBody>
@@ -204,4 +227,67 @@ class Createuser extends Component {
     )
   }
 }
-export default Createuser
+
+export default withRouter(UserUpdate)
+
+/*<div className="container">
+        <h1 className="page-header text-center">Update Contact</h1>
+        <Link to="/" className="btn btn-primary btn-xs">
+          Home
+        </Link>
+        <div className="col-md-12">
+          <div className="panel panel-primary">
+            <div className="panel-body">
+              <form onSubmit={this.handleSubmit}>
+                <input type="hidden" name="id" value={this.state.id} />
+                <label>Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  className="form-control"
+                  value={this.state.name}
+                  onChange={this.handleChange}
+                />
+
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  className="form-control"
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                />
+
+                <label>Country</label>
+                <input
+                  type="text"
+                  name="country"
+                  className="form-control"
+                  value={this.state.country}
+                  onChange={this.handleChange}
+                />
+
+                <label>City</label>
+                <input
+                  type="text"
+                  name="city"
+                  className="form-control"
+                  value={this.state.city}
+                  onChange={this.handleChange}
+                />
+
+                <label>Job</label>
+                <input
+                  type="text"
+                  name="job"
+                  className="form-control"
+                  value={this.state.job}
+                  onChange={this.handleChange}
+                />
+                <br />
+                <input type="submit" className="btn btn-primary btn-block" value="Update Contact" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>*/

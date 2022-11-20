@@ -53,7 +53,11 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 //
 //const Home = React.lazy(() => import('./views/pages/home/Home'))
 const Createuser = React.lazy(() => import('./views/users/Create'))
+const ListUser = React.lazy(() => import('./views/users/List'))
+const EditUser = React.lazy(() => import('./views/users/Edit'))
+const UpdateUser = React.lazy(() => import('./views/users/Update'))
 const All = React.lazy(() => import('./views/properties/All/All'))
+const AllList = React.lazy(() => import('./views/properties/All/List'))
 const Flat = React.lazy(() => import('./views/properties/Flat/Flat'))
 const Office = React.lazy(() => import('./views/properties/Office/Office'))
 const Shop = React.lazy(() => import('./views/properties/Shop/Shop'))
@@ -65,7 +69,11 @@ const routes = [
   //{ path: '/home', name: 'Home', element: Home },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/user/create', name: 'Create User', element: Createuser },
+  { path: '/user/list', name: 'List Users', element: ListUser },
+  { path: '/user/edit', name: 'Edit User', element: EditUser },
+  { path: '/user/update:id', name: 'Update User', element: UpdateUser },
   { path: '/properties/all', name: 'All Properties', element: All },
+  { path: '/properties/all/list', name: 'All Properties List', element: AllList },
   { path: '/properties/flat', name: 'Flat', element: Flat },
   { path: '/properties/office', name: 'Office', element: Office },
   { path: '/properties/shop', name: 'Shop', element: Shop },
