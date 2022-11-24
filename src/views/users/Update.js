@@ -53,7 +53,6 @@ class UserUpdate extends React.Component {
       .then((data) => {
         // handle success
         console.log(data)
-        console.log(data.id)
         this.setState({
           id: data.id,
           email: data.email,

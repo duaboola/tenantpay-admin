@@ -2,6 +2,7 @@
 import React from 'react'
 //import classNames from 'classnames'
 import { CButton } from '@coreui/react'
+import { Link } from 'react-router-dom'
 // import { CRow, CCol, CCard, CCardHeader, CCardBody } from '@coreui/react'
 // import { rgbToHex } from '@coreui/utils'
 // import { DocsLink } from 'src/components'
@@ -12,8 +13,8 @@ const All = () => {
       <tbody>
         <tr>
           <td className="text-medium-emphasis">
-            <CButton color="primary" className="px-4">
-              List
+            <CButton color="secondary" className="px-4">
+              <Link to="/properties/all/list">List</Link>
             </CButton>
           </td>
           <td className="text-medium-emphasis">
