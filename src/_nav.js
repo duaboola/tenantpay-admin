@@ -167,10 +167,8 @@ const _nav = [
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
   },
   {
-    component: CNavItem,
-    name: 'Delete User',
-    to: '/charts',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    component: CNavTitle,
+    name: 'Payments',
   },
 ]
 

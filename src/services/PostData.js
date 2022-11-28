@@ -1,8 +1,8 @@
 export function PostData(type, userData) {
-  let BaseURL = 'http://192.168.100.96:8888/tenantpay/api/index.php'
+  let BaseURL = 'http://192.168.100.96:8888/tenantpay/api/'
 
   return new Promise((resolve, reject) => {
-    fetch(BaseURL + '?tp=' + type, {
+    fetch(BaseURL + 'index.php?tp=' + type, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

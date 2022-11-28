@@ -59,6 +59,7 @@ const UpdateUser = React.lazy(() => import('./views/users/Update'))
 const All = React.lazy(() => import('./views/properties/All/All'))
 const AllList = React.lazy(() => import('./views/properties/All/List'))
 const Flat = React.lazy(() => import('./views/properties/Flat/Flat'))
+const FlatList = React.lazy(() => import('./views/properties/Flat/List'))
 const Office = React.lazy(() => import('./views/properties/Office/Office'))
 const Shop = React.lazy(() => import('./views/properties/Shop/Shop'))
 const Villa = React.lazy(() => import('./views/properties/Villa/Villa'))
@@ -75,6 +76,7 @@ const routes = [
   { path: '/properties/all', name: 'All Properties', element: All },
   { path: '/properties/all/list', name: 'All Properties List', element: AllList },
   { path: '/properties/flat', name: 'Flat', element: Flat },
+  { path: '/properties/flat/list', name: 'Flat List', element: FlatList },
   { path: '/properties/office', name: 'Office', element: Office },
   { path: '/properties/shop', name: 'Shop', element: Shop },
   { path: '/properties/villa', name: 'Villa', element: Villa },
