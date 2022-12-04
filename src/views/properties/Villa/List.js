@@ -10,11 +10,10 @@ import {
   CCardBody,
 } from '@coreui/react'
 
-class FlatList extends React.Component {
+class VillaList extends React.Component {
   state = {
     id: '',
     name: '',
-    building: '',
     location: '',
     address: '',
     rooms: '',
@@ -28,9 +27,9 @@ class FlatList extends React.Component {
     security: '',
     cctv: '',
     parking: '',
+    bbq: '',
     wifi: '',
     description: '',
-    type: '',
     price: '',
     owner_email: '',
     tenant_email: '',
@@ -41,7 +40,7 @@ class FlatList extends React.Component {
   }
 
   componentDidMount() {
-    const url = 'http://192.168.100.96:8888/tenantpay/api/properties/flat/flat.php'
+    const url = 'http://192.168.100.96:8888/tenantpay/api/properties/villa/villa.php'
     axios
       .get(url)
       .then((response) => response.data)
@@ -57,15 +56,14 @@ class FlatList extends React.Component {
         <h1 className="page-header text-center">Property Management</h1>
 
         <div className="">
-          <h3>Flat</h3>
+          <h3>Villa</h3>
           <CCardBody>
             <CTable align="middle" className="mb-0 border table-striped" hover responsive>
               <CTableHead color="light">
                 <CTableRow>
                   <CTableHeaderCell>Id</CTableHeaderCell>
                   <CTableHeaderCell>Owner</CTableHeaderCell>
-                  <CTableHeaderCell>Flat</CTableHeaderCell>
-                  <CTableHeaderCell>Building</CTableHeaderCell>
+                  <CTableHeaderCell>Villa</CTableHeaderCell>
                   <CTableHeaderCell>Location</CTableHeaderCell>
                   <CTableHeaderCell>Address</CTableHeaderCell>
                   <CTableHeaderCell>Rooms</CTableHeaderCell>
@@ -79,9 +77,9 @@ class FlatList extends React.Component {
                   <CTableHeaderCell>Parking</CTableHeaderCell>
                   <CTableHeaderCell>CCTV</CTableHeaderCell>
                   <CTableHeaderCell>Security</CTableHeaderCell>
+                  <CTableHeaderCell>Bbq</CTableHeaderCell>
                   <CTableHeaderCell>Wifi</CTableHeaderCell>
                   <CTableHeaderCell>Description</CTableHeaderCell>
-                  <CTableHeaderCell>Type</CTableHeaderCell>
                   <CTableHeaderCell>Price</CTableHeaderCell>
                   <CTableHeaderCell>Tenant Email</CTableHeaderCell>
                   <CTableHeaderCell>Mobile</CTableHeaderCell>
@@ -96,13 +94,10 @@ class FlatList extends React.Component {
                       <div>{property.id}</div>
                     </CTableDataCell>
                     <CTableDataCell>
-                      <div>{property.owner_email}</div>
+                      <div>{property.owner_id}</div>
                     </CTableDataCell>
                     <CTableDataCell>
-                      <div>{property.flat_name}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.building_name}</div>
+                      <div>{property.name}</div>
                     </CTableDataCell>
                     <CTableDataCell>
                       <div>{property.location}</div>
@@ -114,7 +109,7 @@ class FlatList extends React.Component {
                       <div>{property.rooms}</div>
                     </CTableDataCell>
                     <CTableDataCell>
-                      <div>{property.bathrooms}</div>
+                      <div>{property.bathroom}</div>
                     </CTableDataCell>
                     <CTableDataCell>
                       <div>{property.hall}</div>
@@ -144,13 +139,13 @@ class FlatList extends React.Component {
                       <div>{property.security}</div>
                     </CTableDataCell>
                     <CTableDataCell>
+                      <div>{property.bbq}</div>
+                    </CTableDataCell>
+                    <CTableDataCell>
                       <div>{property.wifi}</div>
                     </CTableDataCell>
                     <CTableDataCell>
                       <div>{property.description}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.type}</div>
                     </CTableDataCell>
                     <CTableDataCell>
                       <div>{property.price}</div>
@@ -162,10 +157,10 @@ class FlatList extends React.Component {
                       <div>{property.mobile}</div>
                     </CTableDataCell>
                     <CTableDataCell>
-                      <div>{property.start_date}</div>
+                      <div>{property.contract_start}</div>
                     </CTableDataCell>
                     <CTableDataCell>
-                      <div>{property.end_date}</div>
+                      <div>{property.contract_end}</div>
                     </CTableDataCell>
                   </CTableRow>
                 ))}
@@ -177,67 +172,4 @@ class FlatList extends React.Component {
     )
   }
 }
-export default FlatList
-
-/*<table className="table table-bordered table-striped ">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Owner</th>
-                <th>Flat</th>
-                <th>Building</th>
-                <th>Location</th>
-                <th>Address</th>
-                <th>Rooms</th>
-                <th>Bathroom</th>
-                <th>Hall</th>
-                <th>Size</th>
-                <th>EWA</th>
-                <th>Furnished</th>
-                <th>Pool</th>
-                <th>Garden</th>
-                <th>Parking</th>
-                <th>CCTV</th>
-                <th>Security</th>
-                <th>Wifi</th>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Price</th>
-                <th>Tenant Email</th>
-                <th>Mobile</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.properties.map((property, index) => (
-                <tr key={index}>
-                  <td>{property.id}</td>
-                  <td>{property.owner_email}</td>
-                  <td>{property.flat_name}</td>
-                  <td>{property.building_name}</td>
-                  <td>{property.location}</td>
-                  <td>{property.address}</td>
-                  <td>{property.rooms}</td>
-                  <td>{property.bathrooms}</td>
-                  <td>{property.hall}</td>
-                  <td>{property.size}</td>
-                  <td>{property.ewa}</td>
-                  <td>{property.furnished}</td>
-                  <td>{property.pool}</td>
-                  <td>{property.garden}</td>
-                  <td>{property.parking}</td>
-                  <td>{property.cctv}</td>
-                  <td>{property.security}</td>
-                  <td>{property.wifi}</td>
-                  <td>{property.description}</td>
-                  <td>{property.type}</td>
-                  <td>{property.price}</td>
-                  <td>{property.tenant_email}</td>
-                  <td>{property.mobile}</td>
-                  <td>{property.start_date}</td>
-                  <td>{property.end_date}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>*/
+export default VillaList

@@ -35,7 +35,7 @@ class Login extends Component {
         let responseJson = result
         if (responseJson.userData) {
           sessionStorage.setItem('userData', JSON.stringify(responseJson))
-          this.setState({ redirectToReferrer: true })
+          this.setState({ redirectToReferrer: true, isAuth: true })
         } else alert(result.error)
       })
     }

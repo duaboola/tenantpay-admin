@@ -61,9 +61,13 @@ const AllList = React.lazy(() => import('./views/properties/All/List'))
 const Flat = React.lazy(() => import('./views/properties/Flat/Flat'))
 const FlatList = React.lazy(() => import('./views/properties/Flat/List'))
 const Office = React.lazy(() => import('./views/properties/Office/Office'))
+const OfficeList = React.lazy(() => import('./views/properties/Office/List'))
 const Shop = React.lazy(() => import('./views/properties/Shop/Shop'))
+const ShopList = React.lazy(() => import('./views/properties/Shop/List'))
 const Villa = React.lazy(() => import('./views/properties/Villa/Villa'))
+const VillaList = React.lazy(() => import('./views/properties/Villa/List'))
 const Warehouse = React.lazy(() => import('./views/properties/Warehouse/Warehouse'))
+const WarehouseList = React.lazy(() => import('./views/properties/Warehouse/List'))
 
 const routes = [
   { path: '/', exact: true, name: 'Welcome' },
@@ -78,9 +82,13 @@ const routes = [
   { path: '/properties/flat', name: 'Flat', element: Flat },
   { path: '/properties/flat/list', name: 'Flat List', element: FlatList },
   { path: '/properties/office', name: 'Office', element: Office },
+  { path: '/properties/office/list', name: 'Office List', element: OfficeList },
   { path: '/properties/shop', name: 'Shop', element: Shop },
+  { path: '/properties/shop/list', name: 'Shop List', element: ShopList },
   { path: '/properties/villa', name: 'Villa', element: Villa },
+  { path: '/properties/villa/list', name: 'Villa List', element: VillaList },
   { path: '/properties/warehouse', name: 'Warehouse', element: Warehouse },
+  { path: '/properties/warehouse/list', name: 'Warehouse List', element: WarehouseList },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

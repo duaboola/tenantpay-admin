@@ -78,7 +78,7 @@ class UserList extends React.Component {
                 <tr key={index}>
                   <td>{user.id}</td>
                   <td>{user.email}</td>
-                  <td>{user.password}</td>
+                  <td>{user.secretword}</td>
                   <td>{user.fname}</td>
                   <td>{user.lname}</td>
                   <td>{user.cpr}</td>

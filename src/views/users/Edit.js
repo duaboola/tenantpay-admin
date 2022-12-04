@@ -76,7 +76,7 @@ class EditUser extends React.Component {
                   <tr key={key}>
                     <td>{item.id}</td>
                     <td>{item.email}</td>
-                    <td>{item.password}</td>
+                    <td>{item.secretword}</td>
                     <td>{item.fname}</td>
                     <td>{item.lname}</td>
                     <td>{item.cpr}</td>

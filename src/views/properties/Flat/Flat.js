@@ -9,7 +9,9 @@ const Flat = () => {
         <tr>
           <td className="text-medium-emphasis">
             <CButton color="secondary" className="px-4">
-              <Link to="/properties/flat/list">List</Link>
+              <Link to="/properties/flat/list" style={{ textDecoration: 'none' }}>
+                List
+              </Link>
             </CButton>
           </td>
           <td className="text-medium-emphasis">

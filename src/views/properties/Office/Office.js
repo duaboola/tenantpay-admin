@@ -1,5 +1,6 @@
 import React from 'react'
 import { CButton } from '@coreui/react'
+import { Link } from 'react-router-dom'
 
 const Office = () => {
   return (
@@ -7,8 +8,10 @@ const Office = () => {
       <tbody>
         <tr>
           <td className="text-medium-emphasis">
-            <CButton color="primary" className="px-4">
-              List
+            <CButton color="secondary" className="px-4">
+              <Link to="/properties/office/list" style={{ textDecoration: 'none' }}>
+                List
+              </Link>
             </CButton>
           </td>
           <td className="text-medium-emphasis">

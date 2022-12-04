@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   CContainer,
   CHeader,
+  CButton,
   //CHeaderBrand,
   CHeaderDivider,
   CHeaderNav,
@@ -12,10 +13,11 @@ import {
   CNavItem,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
+import { cilBell, cilMenu } from '@coreui/icons'
+import { Link } from 'react-router-dom'
 
 import { AppBreadcrumb } from './index'
-import { AppHeaderDropdown } from './header/index'
+//import { AppHeaderDropdown } from './header/index'
 
 const AppHeader = () => {
   const dispatch = useDispatch()
@@ -51,18 +53,12 @@ const AppHeader = () => {
             </CNavLink>
           </CNavItem>
           <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilList} size="lg" />
-            </CNavLink>
+            <CButton color="secondary" className="px-4">
+              <Link to="/login" style={{ textDecoration: 'none' }}>
+                Logout
+              </Link>
+            </CButton>
           </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilEnvelopeOpen} size="lg" />
-            </CNavLink>
-          </CNavItem>
-        </CHeaderNav>
-        <CHeaderNav className="ms-3">
-          <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>
       <CHeaderDivider />
@@ -76,4 +72,21 @@ const AppHeader = () => {
 export default AppHeader
 /*<CHeaderBrand className="mx-auto d-md-none" to="/">
           <CIcon icon={logo} height={48} alt="Logo" />
-        </CHeaderBrand>*/
+        </CHeaderBrand>
+        
+        <CHeaderNav className="ms-3">
+          <AppHeaderDropdown />
+        </CHeaderNav>
+
+        <CNavItem>
+            <CNavLink href="#">
+              <CIcon icon={cilList} size="lg" />
+            </CNavLink>
+          </CNavItem>
+          <CNavItem>
+            <CNavLink href="#">
+              <CIcon icon={cilEnvelopeOpen} size="lg" />
+            </CNavLink>
+          </CNavItem>
+        
+        */

@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './scss/style.scss'
+//import PrivateRoute from './PrivateRoute'
 
 const loading = (
   <div className="pt-3 text-center">
@@ -37,3 +38,8 @@ class App extends Component {
 }
 
 export default App
+
+/*{this.state.isAuth ? <Route path="*" name="Home" element={<DefaultLayout />} /> : null}*
+<Route exact path="/" element={<PrivateRoute />}>
+              <Route path="*" name="Home" element={<DefaultLayout />} />
+            </Route>*/
