@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import API from 'src/api'
 import { Link } from 'react-router-dom'
 
 class EditUser extends React.Component {
@@ -19,9 +19,8 @@ class EditUser extends React.Component {
     this.deleteUser = this.deleteUser.bind(this)
   }
   componentDidMount() {
-    const url = 'http://192.168.100.96:8888/tenantpay/api/user/users.php'
-    axios
-      .get(url)
+    const url = '/api/user/users.php'
+    API.get(url)
       .then((response) => response.data)
       .then((data) => {
         this.setState({ users: data })
@@ -33,9 +32,9 @@ class EditUser extends React.Component {
     //alert(id)
     event.preventDefault()
     if (window.confirm('Are you sure want to delete?')) {
-      axios({
+      API({
         method: 'post',
-        url: 'http://192.168.100.96:8888/tenantpay/api/user/users.php?delete=' + id,
+        url: '/api/user/users.php?delete=' + id,
       })
         .then(function (response) {
           //handle success

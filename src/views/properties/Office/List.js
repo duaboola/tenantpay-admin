@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import {
   CTable,
   CTableBody,
@@ -9,6 +8,7 @@ import {
   CTableRow,
   CCardBody,
 } from '@coreui/react'
+import API from 'src/api'
 
 class OfficeList extends React.Component {
   state = {
@@ -41,9 +41,8 @@ class OfficeList extends React.Component {
   }
 
   componentDidMount() {
-    const url = 'http://192.168.100.96:8888/tenantpay/api/properties/office/office.php'
-    axios
-      .get(url)
+    const url = '/api/properties/office/office.php'
+    API.get(url)
       .then((response) => response.data)
       .then((data) => {
         this.setState({ properties: data })

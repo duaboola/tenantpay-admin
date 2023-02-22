@@ -15,7 +15,7 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 // import { PostData } from '../../services/PostData'
 // import { Navigate } from 'react-router-dom'
-import axios from 'axios'
+import API from 'src/api'
 
 class Createuser extends Component {
   constructor(props) {
@@ -46,9 +46,9 @@ class Createuser extends Component {
     formData.append('mobile', this.state.mobile)
     formData.append('usertype', this.state.usertype)
 
-    axios({
+    API({
       method: 'post',
-      url: 'http://192.168.100.96:8888/tenantpay/api/user/users.php',
+      url: '/api/user/users.php',
       data: formData,
       config: { headers: { 'Content-Type': 'multipart/form-data' } },
     })

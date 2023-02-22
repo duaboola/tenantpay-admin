@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import API from 'src/api'
 
 class UserList extends React.Component {
   state = {
@@ -15,9 +15,8 @@ class UserList extends React.Component {
   }
 
   componentDidMount() {
-    const url = 'http://192.168.100.96:8888/tenantpay/api/user/users.php'
-    axios
-      .get(url)
+    const url = '/api/user/users.php'
+    API.get(url)
       .then((response) => response.data)
       .then((data) => {
         this.setState({ users: data })

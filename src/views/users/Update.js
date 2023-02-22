@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import API from 'src/api'
 import {
   CButton,
   CCard,
@@ -42,12 +42,11 @@ class UserUpdate extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(
-        'http://192.168.100.96:8888/tenantpay/api/user/users.php/${id}' +
-          // eslint-disable-next-line react/prop-types
-          this.props.match.params.id,
-      )
+    API.get(
+      '/api/user/users.php/${id}' +
+        // eslint-disable-next-line react/prop-types
+        this.props.match.params.id,
+    )
 
       .then((response) => response.data)
       .then((data) => {
@@ -90,10 +89,10 @@ class UserUpdate extends React.Component {
     formData.append('mobile', this.state.mobile)
     formData.append('usertype', this.state.usertype)
 
-    axios({
+    API({
       method: 'post',
       url:
-        'http://192.168.100.96:8888/tenantpay/api/user/users.php/?id=' +
+        '/api/user/users.php/?id=' +
         // eslint-disable-next-line react/prop-types
         this.props.match.params.id,
       data: formData,

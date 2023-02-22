@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import {
   CTable,
   CTableBody,
@@ -9,6 +8,7 @@ import {
   CTableRow,
   CCardBody,
 } from '@coreui/react'
+import API from 'src/api'
 
 class FlatList extends React.Component {
   state = {
@@ -41,9 +41,8 @@ class FlatList extends React.Component {
   }
 
   componentDidMount() {
-    const url = 'http://192.168.100.96:8888/tenantpay/api/properties/flat/flat.php'
-    axios
-      .get(url)
+    const url = '/api/properties/flat/flat.php'
+    API.get(url)
       .then((response) => response.data)
       .then((data) => {
         this.setState({ properties: data })

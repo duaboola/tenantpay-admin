@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import API from 'src/api'
 import {
   CTable,
   CTableBody,
@@ -34,9 +34,8 @@ class WarehouseList extends React.Component {
   }
 
   componentDidMount() {
-    const url = 'http://192.168.100.96:8888/tenantpay/api/properties/warehouse/warehouse.php'
-    axios
-      .get(url)
+    const url = '/api/properties/warehouse/warehouse.php'
+    API.get(url)
       .then((response) => response.data)
       .then((data) => {
         this.setState({ properties: data })
