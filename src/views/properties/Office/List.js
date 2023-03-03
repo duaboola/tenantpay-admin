@@ -9,39 +9,44 @@ import {
   CCardBody,
 } from '@coreui/react'
 import API from 'src/api'
+import { Link } from 'react-router-dom'
+import OfficeFilterList from 'src/components/FilterList'
 
 class OfficeList extends React.Component {
-  state = {
-    id: '',
-    name: '',
-    building: '',
-    location: '',
-    address: '',
-    rooms: '',
-    recpetion: '',
-    dining: '',
-    capacity: '',
-    size: '',
-    ewa: '',
-    furnished: '',
-    meeting: '',
-    security: '',
-    cctv: '',
-    parking: '',
-    wifi: '',
-    eco: '',
-    description: '',
-    price: '',
-    owner_email: '',
-    tenant_email: '',
-    mobile: '',
-    start_date: '',
-    end_date: '',
-    properties: [],
+  constructor(props) {
+    super(props)
+    this.state = {
+      id: '',
+      name: '',
+      building: '',
+      location: '',
+      address: '',
+      rooms: '',
+      recpetion: '',
+      dining: '',
+      capacity: '',
+      size: '',
+      ewa: '',
+      furnished: '',
+      meeting: '',
+      security: '',
+      cctv: '',
+      parking: '',
+      wifi: '',
+      eco: '',
+      description: '',
+      price: '',
+      owner_email: '',
+      tenant_email: '',
+      mobile: '',
+      start_date: '',
+      end_date: '',
+      properties: [],
+    }
   }
 
   componentDidMount() {
-    const url = '/api/properties/office/office.php'
+    const url = '/prop/office/admin_list.php'
     API.get(url)
       .then((response) => response.data)
       .then((data) => {
@@ -50,11 +55,26 @@ class OfficeList extends React.Component {
       })
   }
 
+  componentWillUnmount() {
+    const url = '/prop/flat/admin_list.php'
+    API.get(url)
+      .then((response) => response.data)
+      .then((data) => {
+        this.setState({ properties: data })
+        console.log(this.state.properties)
+      })
+  }
+
+  handleChange = (event) => {
+    const { value } = event.target
+    this.setState({ value })
+  }
+
   render() {
     return (
       <div className="container">
         <h1 className="page-header text-center">Property Management</h1>
-
+        <OfficeFilterList />
         <div className="">
           <h3>Office</h3>
           <CCardBody>
@@ -67,25 +87,10 @@ class OfficeList extends React.Component {
                   <CTableHeaderCell>Building</CTableHeaderCell>
                   <CTableHeaderCell>Location</CTableHeaderCell>
                   <CTableHeaderCell>Address</CTableHeaderCell>
-                  <CTableHeaderCell>Rooms</CTableHeaderCell>
-                  <CTableHeaderCell>Reception</CTableHeaderCell>
-                  <CTableHeaderCell>Dining</CTableHeaderCell>
-                  <CTableHeaderCell>Capacity</CTableHeaderCell>
-                  <CTableHeaderCell>Size</CTableHeaderCell>
-                  <CTableHeaderCell>EWA</CTableHeaderCell>
-                  <CTableHeaderCell>Furnished</CTableHeaderCell>
-                  <CTableHeaderCell>Meeting Space</CTableHeaderCell>
-                  <CTableHeaderCell>Parking</CTableHeaderCell>
-                  <CTableHeaderCell>CCTV</CTableHeaderCell>
-                  <CTableHeaderCell>Security</CTableHeaderCell>
-                  <CTableHeaderCell>Wifi</CTableHeaderCell>
-                  <CTableHeaderCell>Description</CTableHeaderCell>
-                  <CTableHeaderCell>Ecofriendly</CTableHeaderCell>
                   <CTableHeaderCell>Price</CTableHeaderCell>
                   <CTableHeaderCell>Tenant Email</CTableHeaderCell>
                   <CTableHeaderCell>Mobile</CTableHeaderCell>
-                  <CTableHeaderCell>Start Date</CTableHeaderCell>
-                  <CTableHeaderCell>End Date</CTableHeaderCell>
+                  <CTableHeaderCell>Action</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>
@@ -110,48 +115,6 @@ class OfficeList extends React.Component {
                       <div>{property.address}</div>
                     </CTableDataCell>
                     <CTableDataCell>
-                      <div>{property.rooms}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.reception}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.dining}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.capacity}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.size}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.ewa}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.furnished}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.meetingspace}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.parking}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.cctv}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.security}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.wifi}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.description}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.ecofriendly}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
                       <div>{property.price}</div>
                     </CTableDataCell>
                     <CTableDataCell>
@@ -161,10 +124,14 @@ class OfficeList extends React.Component {
                       <div>{property.mobile}</div>
                     </CTableDataCell>
                     <CTableDataCell>
-                      <div>{property.start_date}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.end_date}</div>
+                      <div>
+                        <Link
+                          to={`/properties/office/details:${property.id}`}
+                          className="btn btn-dark btn-xs"
+                        >
+                          Details
+                        </Link>
+                      </div>
                     </CTableDataCell>
                   </CTableRow>
                 ))}

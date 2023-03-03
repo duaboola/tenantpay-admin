@@ -34,7 +34,7 @@ class ShopList extends React.Component {
   }
 
   componentDidMount() {
-    const url = '/api/properties/shop/shop.php'
+    const url = '/prop/shop/admin_list.php'
     API.get(url)
       .then((response) => response.data)
       .then((data) => {

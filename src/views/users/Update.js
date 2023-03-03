@@ -11,9 +11,8 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CFormSelect,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
 import { useParams } from 'react-router-dom'
 
 export function withRouter(Children) {
@@ -42,25 +41,26 @@ class UserUpdate extends React.Component {
   }
 
   componentDidMount() {
-    API.get(
-      '/api/user/users.php/${id}' +
-        // eslint-disable-next-line react/prop-types
-        this.props.match.params.id,
-    )
+    API({
+      method: 'get',
+      // eslint-disable-next-line react/prop-types
+      url: '/users/edit.php?id=' + this.props.match.params.id.slice(1),
+    })
+      //   //API.get('/api/user/users.php' + this.props.match.params.id, { headers })
 
       .then((response) => response.data)
       .then((data) => {
         // handle success
         console.log(data)
         this.setState({
-          id: data.id,
-          email: data.email,
-          password: data.password,
-          fname: data.fname,
-          lname: data.lname,
-          cpr: data.cpr,
-          mobile: data.mobile,
-          usertype: data.usertype,
+          id: data[0]['id'],
+          email: data[0]['email'],
+          password: data[0]['secretword'],
+          fname: data[0]['fname'],
+          lname: data[0]['lname'],
+          cpr: data[0]['cpr'],
+          mobile: data[0]['mobile'],
+          usertype: data[0]['usertype'],
         })
       })
       .catch(function (error) {
@@ -81,6 +81,8 @@ class UserUpdate extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     let formData = new FormData()
+    // eslint-disable-next-line react/prop-types
+    formData.append('id', this.props.match.params.id.slice(1))
     formData.append('email', this.state.email)
     formData.append('password', this.state.password)
     formData.append('fname', this.state.fname)
@@ -91,10 +93,8 @@ class UserUpdate extends React.Component {
 
     API({
       method: 'post',
-      url:
-        '/api/user/users.php/?id=' +
-        // eslint-disable-next-line react/prop-types
-        this.props.match.params.id,
+      url: '/users/update_user.php',
+
       data: formData,
       config: { headers: { 'Content-Type': 'multipart/form-data' } },
     })
@@ -123,7 +123,7 @@ class UserUpdate extends React.Component {
                     <h1>Edit User</h1>
                     <p className="text-medium-emphasis">Fill the details</p>
                     <CInputGroup className="mb-3">
-                      <CInputGroupText>@</CInputGroupText>
+                      <CInputGroupText>Email</CInputGroupText>
                       <CFormInput
                         placeholder="Email"
                         name="email"
@@ -134,9 +134,7 @@ class UserUpdate extends React.Component {
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon={cilLockLocked} />
-                      </CInputGroupText>
+                      <CInputGroupText>Password</CInputGroupText>
                       <CFormInput
                         type="password"
                         placeholder="Password"
@@ -148,9 +146,7 @@ class UserUpdate extends React.Component {
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon={cilUser} />
-                      </CInputGroupText>
+                      <CInputGroupText>First Name</CInputGroupText>
                       <CFormInput
                         placeholder="First Name"
                         name="fname"
@@ -161,9 +157,7 @@ class UserUpdate extends React.Component {
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon={cilUser} />
-                      </CInputGroupText>
+                      <CInputGroupText>Last Name</CInputGroupText>
                       <CFormInput
                         placeholder="Last Name"
                         name="lname"
@@ -174,9 +168,7 @@ class UserUpdate extends React.Component {
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon={cilUser} />
-                      </CInputGroupText>
+                      <CInputGroupText>CPR</CInputGroupText>
                       <CFormInput
                         placeholder="CPR"
                         name="cpr"
@@ -187,33 +179,35 @@ class UserUpdate extends React.Component {
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon={cilUser} />
-                      </CInputGroupText>
+                      <CInputGroupText>Mobile</CInputGroupText>
                       <CFormInput
                         placeholder="Mobile"
                         name="mobile"
                         autoComplete="mobile"
                         className="form-control"
                         value={this.state.mobile}
+                        default={this.state.mobile}
                         onChange={this.handleChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon={cilUser} />
+                      <CInputGroupText component="label" htmlFor="usertype">
+                        User Type
                       </CInputGroupText>
-                      <CFormInput
-                        placeholder="Tenant / Owner"
+                      <CFormSelect
+                        id="usertype"
                         name="usertype"
-                        autoComplete="usertype"
-                        className="form-control"
                         value={this.state.usertype}
-                        onChange={this.handleChange}
-                      />
+                        onChange={(e) => this.setState({ usertype: e.target.value })}
+                      >
+                        <option value="Tenant">Tenant</option>
+                        <option value="Owner">Owner</option>
+                      </CFormSelect>
                     </CInputGroup>
                     <div className="d-grid">
-                      <CButton color="success">Update Details</CButton>
+                      <CButton color="success" onClick={(e) => this.handleSubmit(e)}>
+                        Update Details
+                      </CButton>
                     </div>
                   </CForm>
                 </CCardBody>

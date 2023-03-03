@@ -15,7 +15,7 @@ class UserList extends React.Component {
   }
 
   componentDidMount() {
-    const url = '/api/user/users.php'
+    const url = 'users/list.php'
     API.get(url)
       .then((response) => response.data)
       .then((data) => {

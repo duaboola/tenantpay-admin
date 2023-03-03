@@ -12,10 +12,18 @@ import {
   CRow,
   CFormSelect,
 } from '@coreui/react'
-//import axios from 'axios'
 import API from 'src/api'
+import { useParams } from 'react-router-dom'
 
-class CreateFlat extends Component {
+export function withRouter(Children) {
+  // eslint-disable-next-line react/display-name
+  return (props) => {
+    const match = { params: useParams() }
+    return <Children {...props} match={match} />
+  }
+}
+
+class EditFlat extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -48,20 +56,69 @@ class CreateFlat extends Component {
       selectedFile: '',
       resposeArray: [],
     }
-    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
 
-  handleInputChange(event) {
-    this.setState({
-      selectedFile: event.target.files,
-      resposeArray: [],
+  componentDidMount() {
+    API({
+      method: 'get',
+      // eslint-disable-next-line react/prop-types
+      url: '/prop/flat/admin_edit_flat.php?id=' + this.props.match.params.id.slice(1),
     })
+      .then((response) => response.data)
+      .then((data) => {
+        // handle success
+        console.log(data)
+        this.setState({
+          id: data[0]['id'],
+          fname: data[0]['flat_name'],
+          bname: data[0]['building_name'],
+          location: data[0]['location'],
+          address: data[0]['address'],
+          rooms: data[0]['rooms'],
+          bathroom: data[0]['bathrooms'],
+          hall: data[0]['hall'],
+          size: data[0]['size'],
+          ewa: data[0]['ewa'],
+          furnished: data[0]['furnished'],
+          pool: data[0]['pool'],
+          garden: data[0]['garden'],
+          security: data[0]['security'],
+          cctv: data[0]['cctv'],
+          parking: data[0]['parking'],
+          wifi: data[0]['wifi'],
+          description: data[0]['description'],
+          type: data[0]['type'],
+          price: data[0]['price'],
+          email: data[0]['owner_email'],
+          tenant_email: data[0]['tenant_email'],
+          mobile: data[0]['mobile'],
+          start_date: data[0]['start_date'],
+          end_date: data[0]['end_date'],
+        })
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error)
+      })
+      .then(function () {
+        // always executed
+      })
+  }
+
+  handleChange(event) {
+    const state = this.state
+    state[event.target.name] = event.target.value
+    this.setState(state)
   }
 
   handleFormSubmit(event) {
     event.preventDefault()
 
     let formData = new FormData()
+    // eslint-disable-next-line react/prop-types
+    formData.append('id', this.props.match.params.id.slice(1))
     formData.append('fname', this.state.fname)
     formData.append('bname', this.state.bname)
     formData.append('location', this.state.location)
@@ -86,48 +143,17 @@ class CreateFlat extends Component {
     formData.append('mobile', this.state.mobile)
     formData.append('start_date', this.state.start_date)
     formData.append('end_date', this.state.end_date)
-    for (let i = 0; i < this.state.selectedFile.length; i++) {
-      formData.append('file[]', this.state.selectedFile[i])
-    }
-    // const url = '/prop/flat/add_flat.php'
-    // API.post(url, { formData })
-    //   .then(function (response) {
-    //     //handle success
-    //     console.log(response)
-    //     alert('New flat Successfully Added.')
-    //   })
-    //   .catch(function (response) {
-    //     //handle error
-    //     console.log(response)
-    //   })
     API({
       method: 'post',
-      url: '/prop/flat/admin_add_flat.php',
+      url: '/prop/flat/admin_update_flat.php',
       data: formData,
       config: { headers: { 'Content-Type': 'multipart/form-data' } },
     })
-      // axios({
-      //   method: 'post',
-      //   url: 'http://192.168.100.96:8888/tenantpay/prop/flat/admin_add_flat.php',
-      //   data: formData,
-      //   config: { headers: { 'Content-Type': 'multipart/form-data' } },
-      // })
       .then(function (response) {
         //handle success
         console.log(response)
-        // eslint-disable-next-line react/prop-types
-        // this.props.history.push({
-        //   pathname: '/properties/gallery/add',
-        //   state: {
-        //     fname: this.state.fname,
-        //     bname: this.state.bname,
-        //     location: this.state.location,
-        //     type: 'Flat',
-        //   },
-        // })
-        // this.setState({ responseArray: response.formData })
-        // this.resetFile()
-        alert('New flat Successfully Added.')
+
+        alert('Flat Details are Successfully Updated.')
       })
       .catch(function (response) {
         //handle error
@@ -139,28 +165,6 @@ class CreateFlat extends Component {
     document.getElementsByName('file')[0].value = null
   }
 
-  // createuser() {
-  //   if (
-  //     this.state.email &&
-  //     this.state.password &&
-  //     this.state.fname &&
-  //     this.state.lname &&
-  //     this.state.cpr &&
-  //     this.state.mobile &&
-  //     this.state.usertype
-  //   ) {
-  //     PostData('createuser', this.state).then((result) => {
-  //       let responseJson = result
-  //       if (responseJson.userData) {
-  //         sessionStorage.setItem('usersData', JSON.stringify(responseJson))
-  //         this.setState({ redirectToReferrer: true })
-  //       } else alert(result.error)
-  //     })
-  //   }
-  // }
-  // onChange(e) {
-  //   this.setState({ [e.target.name]: e.target.value })
-  // }
   render() {
     // if (this.state.redirectToReferrer || sessionStorage.getItem('usersData')) {
     //   return <Navigate to={'/home'} />
@@ -173,7 +177,7 @@ class CreateFlat extends Component {
               <CCard className="mx-4">
                 <CCardBody className="p-4">
                   <CForm>
-                    <h1>Create Flat</h1>
+                    <h1>Edit Flat</h1>
                     <p className="text-medium-emphasis">Fill the details</p>
                     <CInputGroup className="mb-3">
                       <CFormInput
@@ -182,7 +186,7 @@ class CreateFlat extends Component {
                         autoComplete="email"
                         className="form-control"
                         value={this.state.email}
-                        onChange={(e) => this.setState({ email: e.target.value })}
+                        onChange={this.handleChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
@@ -192,7 +196,7 @@ class CreateFlat extends Component {
                         autoComplete="fname"
                         className="form-control"
                         value={this.state.fname}
-                        onChange={(e) => this.setState({ fname: e.target.value })}
+                        onChange={this.handleChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
@@ -202,7 +206,7 @@ class CreateFlat extends Component {
                         autoComplete="bname"
                         className="form-control"
                         value={this.state.bname}
-                        onChange={(e) => this.setState({ bname: e.target.value })}
+                        onChange={this.handleChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
@@ -212,7 +216,7 @@ class CreateFlat extends Component {
                         autoComplete="location"
                         className="form-control"
                         value={this.state.location}
-                        onChange={(e) => this.setState({ location: e.target.value })}
+                        onChange={this.handleChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
@@ -222,7 +226,7 @@ class CreateFlat extends Component {
                         autoComplete="address"
                         className="form-control"
                         value={this.state.address}
-                        onChange={(e) => this.setState({ address: e.target.value })}
+                        onChange={this.handleChange}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
@@ -232,9 +236,9 @@ class CreateFlat extends Component {
                       <CFormSelect
                         id="rooms"
                         name="rooms"
+                        value={this.state.rooms}
                         onChange={(e) => this.setState({ rooms: e.target.value })}
                       >
-                        <option>Choose...</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -250,9 +254,9 @@ class CreateFlat extends Component {
                       <CFormSelect
                         id="bathroom"
                         name="bathroom"
+                        value={this.state.bathroom}
                         onChange={(e) => this.setState({ bathroom: e.target.value })}
                       >
-                        <option>Choose...</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -268,9 +272,9 @@ class CreateFlat extends Component {
                       <CFormSelect
                         id="hall"
                         name="hall"
+                        value={this.state.hall}
                         onChange={(e) => this.setState({ hall: e.target.value })}
                       >
-                        <option>Choose...</option>
                         <option value="Available">Available</option>
                         <option value="Not Available">Not Available</option>
                       </CFormSelect>
@@ -292,9 +296,9 @@ class CreateFlat extends Component {
                       <CFormSelect
                         id="ewa"
                         name="ewa"
+                        value={this.state.ewa}
                         onChange={(e) => this.setState({ ewa: e.target.value })}
                       >
-                        <option>Choose...</option>
                         <option value="Included">Included</option>
                         <option value="Not Included">Not Included</option>
                       </CFormSelect>
@@ -306,9 +310,9 @@ class CreateFlat extends Component {
                       <CFormSelect
                         id="furnished"
                         name="furnished"
+                        value={this.state.furnished}
                         onChange={(e) => this.setState({ furnished: e.target.value })}
                       >
-                        <option>Choose...</option>
                         <option value="Not">Not</option>
                         <option value="Fully">Fully</option>
                         <option value="Semi">Semi</option>
@@ -321,9 +325,9 @@ class CreateFlat extends Component {
                       <CFormSelect
                         id="pool"
                         name="pool"
+                        value={this.state.pool}
                         onChange={(e) => this.setState({ pool: e.target.value })}
                       >
-                        <option>Choose...</option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                       </CFormSelect>
@@ -335,9 +339,9 @@ class CreateFlat extends Component {
                       <CFormSelect
                         id="garden"
                         name="garden"
+                        value={this.state.garden}
                         onChange={(e) => this.setState({ garden: e.target.value })}
                       >
-                        <option>Choose...</option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                       </CFormSelect>
@@ -349,9 +353,9 @@ class CreateFlat extends Component {
                       <CFormSelect
                         id="security"
                         name="security"
+                        value={this.state.security}
                         onChange={(e) => this.setState({ security: e.target.value })}
                       >
-                        <option>Choose...</option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                       </CFormSelect>
@@ -363,9 +367,9 @@ class CreateFlat extends Component {
                       <CFormSelect
                         id="cctv"
                         name="cctv"
+                        value={this.state.cctv}
                         onChange={(e) => this.setState({ cctv: e.target.value })}
                       >
-                        <option>Choose...</option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                       </CFormSelect>
@@ -377,9 +381,9 @@ class CreateFlat extends Component {
                       <CFormSelect
                         id="parking"
                         name="parking"
+                        value={this.state.parking}
                         onChange={(e) => this.setState({ parking: e.target.value })}
                       >
-                        <option>Choose...</option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                       </CFormSelect>
@@ -391,9 +395,9 @@ class CreateFlat extends Component {
                       <CFormSelect
                         id="wifi"
                         name="wifi"
+                        value={this.state.wifi}
                         onChange={(e) => this.setState({ wifi: e.target.value })}
                       >
-                        <option>Choose...</option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                       </CFormSelect>
@@ -425,9 +429,9 @@ class CreateFlat extends Component {
                       <CFormSelect
                         id="type"
                         name="type"
+                        value={this.state.type}
                         onChange={(e) => this.setState({ type: e.target.value })}
                       >
-                        <option>Choose...</option>
                         <option value="Studio Flat">Studio Flat</option>
                         <option value="1BHK">1BHK</option>
                         <option value="2BHK">2BHK</option>
@@ -441,16 +445,42 @@ class CreateFlat extends Component {
                         autoComplete="mobile"
                         className="form-control"
                         value={this.state.mobile}
-                        onChange={(e) => this.setState({ mobile: e.target.value })}
+                        onChange={this.handleChange}
                       />
                     </CInputGroup>
-                    <p className="text-medium-emphasis">Select Files</p>
-                    <div className="form-group p-5">
-                      <input type="file" name="file" multiple onChange={this.handleInputChange} />
-                    </div>
+                    <CInputGroup className="mb-3">
+                      <CFormInput
+                        placeholder="Email of Tenant"
+                        name="tenant_email"
+                        autoComplete="tenant_email"
+                        className="form-control"
+                        value={this.state.tenant_email}
+                        onChange={this.handleChange}
+                      />
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
+                      <CFormInput
+                        placeholder="Contract Start Date"
+                        name="start_date"
+                        autoComplete="start_date"
+                        className="form-control"
+                        value={this.state.start_date}
+                        onChange={this.handleChange}
+                      />
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
+                      <CFormInput
+                        placeholder="Contract End Date"
+                        name="end_date"
+                        autoComplete="end_date"
+                        className="form-control"
+                        value={this.state.end_date}
+                        onChange={this.handleChange}
+                      />
+                    </CInputGroup>
                     <div className="d-grid">
                       <CButton color="success" onClick={(e) => this.handleFormSubmit(e)}>
-                        Create Flat
+                        Update Flat Details
                       </CButton>
                     </div>
                   </CForm>
@@ -463,4 +493,4 @@ class CreateFlat extends Component {
     )
   }
 }
-export default CreateFlat
+export default withRouter(EditFlat)

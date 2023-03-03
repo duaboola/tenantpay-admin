@@ -15,8 +15,10 @@ const Office = () => {
             </CButton>
           </td>
           <td className="text-medium-emphasis">
-            <CButton color="primary" className="px-4">
-              Create
+            <CButton color="secondary" className="px-4">
+              <Link to="/properties/office/create" style={{ textDecoration: 'none' }}>
+                Create
+              </Link>
             </CButton>
           </td>
         </tr>

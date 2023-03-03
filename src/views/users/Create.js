@@ -10,6 +10,7 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CFormSelect,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
@@ -48,7 +49,7 @@ class Createuser extends Component {
 
     API({
       method: 'post',
-      url: '/api/user/users.php',
+      url: 'users/add.php',
       data: formData,
       config: { headers: { 'Content-Type': 'multipart/form-data' } },
     })
@@ -176,7 +177,7 @@ class Createuser extends Component {
                         onChange={(e) => this.setState({ mobile: e.target.value })}
                       />
                     </CInputGroup>
-                    <CInputGroup className="mb-3">
+                    {/* <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
@@ -188,6 +189,20 @@ class Createuser extends Component {
                         value={this.state.usertype}
                         onChange={(e) => this.setState({ usertype: e.target.value })}
                       />
+                    </CInputGroup> */}
+                    <CInputGroup className="mb-3">
+                      <CInputGroupText component="label" htmlFor="usertype">
+                        User Type
+                      </CInputGroupText>
+                      <CFormSelect
+                        id="usertype"
+                        name="usertype"
+                        onChange={(e) => this.setState({ usertype: e.target.value })}
+                      >
+                        <option>Choose...</option>
+                        <option value="Tenant">Tenant</option>
+                        <option value="Owner">Owner</option>
+                      </CFormSelect>
                     </CInputGroup>
                     <div className="d-grid">
                       <CButton color="success" onClick={(e) => this.handleFormSubmit(e)}>

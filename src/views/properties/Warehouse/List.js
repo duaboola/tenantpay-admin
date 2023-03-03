@@ -34,7 +34,7 @@ class WarehouseList extends React.Component {
   }
 
   componentDidMount() {
-    const url = '/api/properties/warehouse/warehouse.php'
+    const url = '/prop/warehouse/admin_list.php'
     API.get(url)
       .then((response) => response.data)
       .then((data) => {

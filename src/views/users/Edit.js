@@ -2,6 +2,8 @@ import React from 'react'
 import API from 'src/api'
 import { Link } from 'react-router-dom'
 
+//Modal.setAppElement('#')
+
 class EditUser extends React.Component {
   constructor(props) {
     super(props)
@@ -18,8 +20,9 @@ class EditUser extends React.Component {
     ]
     this.deleteUser = this.deleteUser.bind(this)
   }
+
   componentDidMount() {
-    const url = '/api/user/users.php'
+    const url = 'users/list.php'
     API.get(url)
       .then((response) => response.data)
       .then((data) => {
@@ -34,13 +37,14 @@ class EditUser extends React.Component {
     if (window.confirm('Are you sure want to delete?')) {
       API({
         method: 'post',
-        url: '/api/user/users.php?delete=' + id,
+        url: '/users/delete.php?id=' + id,
       })
         .then(function (response) {
           //handle success
           console.log(response)
           if (response.status === 200) {
             alert('User deleted successfully')
+            window.location.reload(false)
           }
         })
         .catch(function (response) {
@@ -82,7 +86,11 @@ class EditUser extends React.Component {
                     <td>{item.mobile}</td>
                     <td>{item.usertype}</td>
                     <td>
-                      <Link to={`/user/update:${item.id}`} className="btn btn-primary btn-xs">
+                      <Link
+                        to={`/user/update:${item.id}`}
+                        // onClick={this.editUser.bind(this, item.id)}
+                        className="btn btn-primary btn-xs"
+                      >
                         Edit
                       </Link>
 

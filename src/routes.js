@@ -60,35 +60,66 @@ const All = React.lazy(() => import('./views/properties/All/All'))
 const AllList = React.lazy(() => import('./views/properties/All/List'))
 const Flat = React.lazy(() => import('./views/properties/Flat/Flat'))
 const FlatList = React.lazy(() => import('./views/properties/Flat/List'))
+const FlatDetails = React.lazy(() => import('./views/properties/Flat/Details'))
+const FlatImages = React.lazy(() => import('./views/properties/Flat/Images'))
+const AddFlatImage = React.lazy(() => import('./views/properties/Flat/Add'))
+const CreateFlat = React.lazy(() => import('./views/properties/Flat/Create'))
+const EditFlat = React.lazy(() => import('./views/properties/Flat/Edit'))
 const Office = React.lazy(() => import('./views/properties/Office/Office'))
 const OfficeList = React.lazy(() => import('./views/properties/Office/List'))
+const OfficeDetails = React.lazy(() => import('./views/properties/Office/Details'))
+const CreateOffice = React.lazy(() => import('./views/properties/Office/Create'))
 const Shop = React.lazy(() => import('./views/properties/Shop/Shop'))
 const ShopList = React.lazy(() => import('./views/properties/Shop/List'))
+const CreateShop = React.lazy(() => import('./views/properties/Shop/Create'))
 const Villa = React.lazy(() => import('./views/properties/Villa/Villa'))
 const VillaList = React.lazy(() => import('./views/properties/Villa/List'))
+const CreateVilla = React.lazy(() => import('./views/properties/Villa/Create'))
 const Warehouse = React.lazy(() => import('./views/properties/Warehouse/Warehouse'))
 const WarehouseList = React.lazy(() => import('./views/properties/Warehouse/List'))
+const CreateWarehouse = React.lazy(() => import('./views/properties/Warehouse/Create'))
+const AddImage = React.lazy(() => import('./views/properties/Gallery/Add'))
 
 const routes = [
   { path: '/', exact: true, name: 'Welcome' },
   //{ path: '/home', name: 'Home', element: Home },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+
   { path: '/user/create', name: 'Create User', element: Createuser },
   { path: '/user/list', name: 'List Users', element: ListUser },
   { path: '/user/edit', name: 'Edit User', element: EditUser },
   { path: '/user/update:id', name: 'Update User', element: UpdateUser },
+
   { path: '/properties/all', name: 'All Properties', element: All },
   { path: '/properties/all/list', name: 'All Properties List', element: AllList },
+
   { path: '/properties/flat', name: 'Flat', element: Flat },
   { path: '/properties/flat/list', name: 'Flat List', element: FlatList },
+  { path: '/properties/flat/details:id', name: 'Flat Details', element: FlatDetails },
+  { path: '/properties/flat/images:id', name: 'Flat Gallery', element: FlatImages },
+  { path: '/properties/flat/images/add:id', name: 'Add Flat Image', element: AddFlatImage },
+  { path: '/properties/flat/create', name: 'Create Flat', element: CreateFlat },
+  { path: '/properties/flat/edit:id', name: 'Edit Flat', element: EditFlat },
+
   { path: '/properties/office', name: 'Office', element: Office },
   { path: '/properties/office/list', name: 'Office List', element: OfficeList },
+  { path: '/properties/office/details:id', name: 'Flat Details', element: OfficeDetails },
+  { path: '/properties/office/create', name: 'Create Office', element: CreateOffice },
+
   { path: '/properties/shop', name: 'Shop', element: Shop },
   { path: '/properties/shop/list', name: 'Shop List', element: ShopList },
+  { path: '/properties/shop/create', name: 'Create Shop', element: CreateShop },
+
   { path: '/properties/villa', name: 'Villa', element: Villa },
   { path: '/properties/villa/list', name: 'Villa List', element: VillaList },
+  { path: '/properties/villa/create', name: 'Create Villa', element: CreateVilla },
+
   { path: '/properties/warehouse', name: 'Warehouse', element: Warehouse },
   { path: '/properties/warehouse/list', name: 'Warehouse List', element: WarehouseList },
+  { path: '/properties/warehouse/create', name: 'Create Warehouse', element: CreateWarehouse },
+
+  { path: '/properties/gallery/add', name: 'Add Images', element: AddImage },
+
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

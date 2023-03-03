@@ -1,12 +1,13 @@
 export function PostData(type, userData) {
-  let BaseURL = 'http://192.168.100.96:8888/tenantpay/api/'
+  let BaseURL = 'http://192.168.100.96:8888/tenantpay/'
 
   return new Promise((resolve, reject) => {
-    fetch(BaseURL + 'index.php?tp=' + type, {
+    fetch(BaseURL + 'api/index.php?tp=' + type, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify(userData),
     })

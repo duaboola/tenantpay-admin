@@ -15,13 +15,12 @@ import {
 //import axios from 'axios'
 import API from 'src/api'
 
-class CreateFlat extends Component {
+class CreateVilla extends Component {
   constructor(props) {
     super(props)
     this.state = {
       id: '',
-      fname: '',
-      bname: '',
+      name: '',
       location: '',
       address: '',
       rooms: '',
@@ -35,9 +34,9 @@ class CreateFlat extends Component {
       security: '',
       cctv: '',
       parking: '',
+      bbq: '',
       wifi: '',
       description: '',
-      type: '',
       price: '',
       email: '',
       tenant_email: '',
@@ -62,8 +61,7 @@ class CreateFlat extends Component {
     event.preventDefault()
 
     let formData = new FormData()
-    formData.append('fname', this.state.fname)
-    formData.append('bname', this.state.bname)
+    formData.append('name', this.state.name)
     formData.append('location', this.state.location)
     formData.append('address', this.state.address)
     formData.append('rooms', this.state.rooms)
@@ -79,7 +77,7 @@ class CreateFlat extends Component {
     formData.append('parking', this.state.parking)
     formData.append('wifi', this.state.wifi)
     formData.append('description', this.state.description)
-    formData.append('type', this.state.type)
+    formData.append('type', this.state.bbq)
     formData.append('price', this.state.price)
     formData.append('email', this.state.email)
     formData.append('tenant_email', this.state.tenant_email)
@@ -89,12 +87,12 @@ class CreateFlat extends Component {
     for (let i = 0; i < this.state.selectedFile.length; i++) {
       formData.append('file[]', this.state.selectedFile[i])
     }
-    // const url = '/prop/flat/add_flat.php'
+    // const url = '/prop/villa/add_villa.php'
     // API.post(url, { formData })
     //   .then(function (response) {
     //     //handle success
     //     console.log(response)
-    //     alert('New flat Successfully Added.')
+    //     alert('New villa Successfully Added.')
     //   })
     //   .catch(function (response) {
     //     //handle error
@@ -102,13 +100,13 @@ class CreateFlat extends Component {
     //   })
     API({
       method: 'post',
-      url: '/prop/flat/admin_add_flat.php',
+      url: '/prop/villa/admin_add_villa.php',
       data: formData,
       config: { headers: { 'Content-Type': 'multipart/form-data' } },
     })
       // axios({
       //   method: 'post',
-      //   url: 'http://192.168.100.96:8888/tenantpay/prop/flat/admin_add_flat.php',
+      //   url: 'http://192.168.100.96:8888/tenantpay/prop/villa/admin_add_villa.php',
       //   data: formData,
       //   config: { headers: { 'Content-Type': 'multipart/form-data' } },
       // })
@@ -122,12 +120,12 @@ class CreateFlat extends Component {
         //     fname: this.state.fname,
         //     bname: this.state.bname,
         //     location: this.state.location,
-        //     type: 'Flat',
+        //     type: 'Villa',
         //   },
         // })
         // this.setState({ responseArray: response.formData })
         // this.resetFile()
-        alert('New flat Successfully Added.')
+        alert('New villa Successfully Added.')
       })
       .catch(function (response) {
         //handle error
@@ -173,7 +171,7 @@ class CreateFlat extends Component {
               <CCard className="mx-4">
                 <CCardBody className="p-4">
                   <CForm>
-                    <h1>Create Flat</h1>
+                    <h1>Create Villa</h1>
                     <p className="text-medium-emphasis">Fill the details</p>
                     <CInputGroup className="mb-3">
                       <CFormInput
@@ -187,22 +185,12 @@ class CreateFlat extends Component {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CFormInput
-                        placeholder="Name of flat"
-                        name="fname"
-                        autoComplete="fname"
+                        placeholder="Name of villa"
+                        name="name"
+                        autoComplete="name"
                         className="form-control"
-                        value={this.state.fname}
-                        onChange={(e) => this.setState({ fname: e.target.value })}
-                      />
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CFormInput
-                        placeholder="Name of Building"
-                        name="bname"
-                        autoComplete="bname"
-                        className="form-control"
-                        value={this.state.bname}
-                        onChange={(e) => this.setState({ bname: e.target.value })}
+                        value={this.state.name}
+                        onChange={(e) => this.setState({ name: e.target.value })}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
@@ -385,6 +373,20 @@ class CreateFlat extends Component {
                       </CFormSelect>
                     </CInputGroup>
                     <CInputGroup className="mb-3">
+                      <CInputGroupText component="label" htmlFor="bbq">
+                        BBQ
+                      </CInputGroupText>
+                      <CFormSelect
+                        id="bbq"
+                        name="bbq"
+                        onChange={(e) => this.setState({ bbq: e.target.value })}
+                      >
+                        <option>Choose...</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                      </CFormSelect>
+                    </CInputGroup>
+                    <CInputGroup className="mb-3">
                       <CInputGroupText component="label" htmlFor="wifi">
                         Wifi
                       </CInputGroupText>
@@ -419,22 +421,6 @@ class CreateFlat extends Component {
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-3">
-                      <CInputGroupText component="label" htmlFor="type">
-                        Type
-                      </CInputGroupText>
-                      <CFormSelect
-                        id="type"
-                        name="type"
-                        onChange={(e) => this.setState({ type: e.target.value })}
-                      >
-                        <option>Choose...</option>
-                        <option value="Studio Flat">Studio Flat</option>
-                        <option value="1BHK">1BHK</option>
-                        <option value="2BHK">2BHK</option>
-                        <option value="3BHK">3BHK</option>
-                      </CFormSelect>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
                       <CFormInput
                         placeholder="Mobile"
                         name="mobile"
@@ -450,7 +436,7 @@ class CreateFlat extends Component {
                     </div>
                     <div className="d-grid">
                       <CButton color="success" onClick={(e) => this.handleFormSubmit(e)}>
-                        Create Flat
+                        Create Villa
                       </CButton>
                     </div>
                   </CForm>
@@ -463,4 +449,4 @@ class CreateFlat extends Component {
     )
   }
 }
-export default CreateFlat
+export default CreateVilla

@@ -40,7 +40,7 @@ class VillaList extends React.Component {
   }
 
   componentDidMount() {
-    const url = '/api/properties/villa/villa.php'
+    const url = '/prop/villa/admin_list.php'
     API.get(url)
       .then((response) => response.data)
       .then((data) => {
