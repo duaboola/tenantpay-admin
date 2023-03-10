@@ -23,31 +23,24 @@ export function withRouter(Children) {
   }
 }
 
-class EditOffice extends Component {
+class EditWarehouse extends Component {
   constructor(props) {
     super(props)
     this.state = {
       id: '',
-      oname: '',
-      bname: '',
+      wname: '',
       location: '',
       address: '',
       rooms: '',
-      reception: '',
-      dining: '',
-      meeting: '',
-      capacity: '',
       size: '',
       ewa: '',
       furnished: '',
-      eco: '',
-      security: '',
       cctv: '',
       parking: '',
-      wifi: '',
+      security: '',
       description: '',
       price: '',
-      email: '',
+      owner_email: '',
       tenant_email: '',
       mobile: '',
       start_date: '',
@@ -62,7 +55,7 @@ class EditOffice extends Component {
     API({
       method: 'get',
       // eslint-disable-next-line react/prop-types
-      url: '/prop/office/admin_edit_office.php?id=' + this.props.match.params.id.slice(1),
+      url: '/prop/warehouse/admin_edit_warehouse.php?id=' + this.props.match.params.id.slice(1),
     })
       .then((response) => response.data)
       .then((data) => {
@@ -70,25 +63,19 @@ class EditOffice extends Component {
         console.log(data)
         this.setState({
           id: data[0]['id'],
-          fname: data[0]['office_name'],
-          bname: data[0]['building_name'],
+          email: data[0]['owner_email'],
+          wname: data[0]['warehouse_name'],
           location: data[0]['location'],
           address: data[0]['address'],
-          rooms: data[0]['rooms'],
-          reception: data[0]['reception'],
-          dining: data[0]['dining'],
-          meeting: data[0]['meetingspace'],
-          capacity: data[0]['capacity'],
+          rooms: data[0]['room'],
           size: data[0]['size'],
           ewa: data[0]['ewa'],
           furnished: data[0]['furnished'],
-          security: data[0]['security'],
           cctv: data[0]['cctv'],
           parking: data[0]['parking'],
-          wifi: data[0]['wifi'],
+          security: data[0]['security'],
           description: data[0]['description'],
           price: data[0]['price'],
-          email: data[0]['owner_email'],
           tenant_email: data[0]['tenant_email'],
           mobile: data[0]['mobile'],
           start_date: data[0]['start_date'],
@@ -116,23 +103,16 @@ class EditOffice extends Component {
     let formData = new FormData()
     // eslint-disable-next-line react/prop-types
     formData.append('id', this.props.match.params.id.slice(1))
-    formData.append('oname', this.state.oname)
-    formData.append('bname', this.state.bname)
+    formData.append('wname', this.state.wname)
     formData.append('location', this.state.location)
     formData.append('address', this.state.address)
     formData.append('rooms', this.state.rooms)
-    formData.append('reception', this.state.reception)
-    formData.append('dining', this.state.dining)
-    formData.append('meeting', this.state.meeting)
-    formData.append('capacity', this.state.capacity)
     formData.append('size', this.state.size)
     formData.append('ewa', this.state.ewa)
     formData.append('furnished', this.state.furnished)
-    formData.append('eco', this.state.eco)
-    formData.append('security', this.state.security)
     formData.append('cctv', this.state.cctv)
     formData.append('parking', this.state.parking)
-    formData.append('wifi', this.state.wifi)
+    formData.append('security', this.state.security)
     formData.append('description', this.state.description)
     formData.append('price', this.state.price)
     formData.append('email', this.state.email)
@@ -142,7 +122,7 @@ class EditOffice extends Component {
     formData.append('end_date', this.state.end_date)
     API({
       method: 'post',
-      url: '/prop/office/admin_update_office.php',
+      url: '/prop/warehouse/admin_update_warehouse.php',
       data: formData,
       config: { headers: { 'Content-Type': 'multipart/form-data' } },
     })
@@ -150,7 +130,7 @@ class EditOffice extends Component {
         //handle success
         console.log(response)
 
-        alert('Office Details are Successfully Updated.')
+        alert('Warehouse Details are Successfully Updated.')
       })
       .catch(function (response) {
         //handle error
@@ -170,7 +150,7 @@ class EditOffice extends Component {
               <CCard className="mx-4">
                 <CCardBody className="p-4">
                   <CForm>
-                    <h1>Edit Office</h1>
+                    <h1>Edit Warehouse</h1>
                     <p className="text-medium-emphasis">Fill the details</p>
                     <CInputGroup className="mb-3">
                       <CFormInput
@@ -184,21 +164,11 @@ class EditOffice extends Component {
                     </CInputGroup>
                     <CInputGroup className="mb-3">
                       <CFormInput
-                        placeholder="Name of office"
-                        name="fname"
-                        autoComplete="fname"
+                        placeholder="Name of warehouse"
+                        name="wname"
+                        autoComplete="wname"
                         className="form-control"
-                        value={this.state.fname}
-                        onChange={this.handleChange}
-                      />
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CFormInput
-                        placeholder="Name of Building"
-                        name="bname"
-                        autoComplete="bname"
-                        className="form-control"
-                        value={this.state.bname}
+                        value={this.state.wname}
                         onChange={this.handleChange}
                       />
                     </CInputGroup>
@@ -241,66 +211,6 @@ class EditOffice extends Component {
                       </CFormSelect>
                     </CInputGroup>
                     <CInputGroup className="mb-3">
-                      <CInputGroupText component="label" htmlFor="reception">
-                        Reception
-                      </CInputGroupText>
-                      <CFormSelect
-                        id="reception"
-                        name="reception"
-                        value={this.state.reception}
-                        onChange={(e) => this.setState({ reception: e.target.value })}
-                      >
-                        <option value="Available">Available</option>
-                        <option value="Not Available">Not Available</option>
-                      </CFormSelect>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText component="label" htmlFor="dining">
-                        Dining
-                      </CInputGroupText>
-                      <CFormSelect
-                        id="dining"
-                        name="dining"
-                        value={this.state.dining}
-                        onChange={(e) => this.setState({ dining: e.target.value })}
-                      >
-                        <option value="Available">Available</option>
-                        <option value="Not Available">Not Available</option>
-                      </CFormSelect>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText component="label" htmlFor="capacity">
-                        Capacity
-                      </CInputGroupText>
-                      <CFormSelect
-                        id="capacity"
-                        name="capacity"
-                        value={this.state.capacity}
-                        onChange={(e) => this.setState({ capacity: e.target.value })}
-                      >
-                        <option value="1-5">1-5</option>
-                        <option value="5-10">5-10</option>
-                        <option value="11-20">11-20</option>
-                        <option value="21-50">21-50</option>
-                        <option value="50-100">50-100</option>
-                        <option value="100+">100+</option>
-                      </CFormSelect>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText component="label" htmlFor="meeting">
-                        Meeting Area
-                      </CInputGroupText>
-                      <CFormSelect
-                        id="meeting"
-                        name="meeting"
-                        value={this.state.meeting}
-                        onChange={(e) => this.setState({ meeting: e.target.value })}
-                      >
-                        <option value="Available">Available</option>
-                        <option value="Not Available">Not Available</option>
-                      </CFormSelect>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
                       <CFormInput
                         placeholder="Size"
                         name="size"
@@ -340,20 +250,6 @@ class EditOffice extends Component {
                       </CFormSelect>
                     </CInputGroup>
                     <CInputGroup className="mb-3">
-                      <CInputGroupText component="label" htmlFor="security">
-                        Security
-                      </CInputGroupText>
-                      <CFormSelect
-                        id="security"
-                        name="security"
-                        value={this.state.security}
-                        onChange={(e) => this.setState({ security: e.target.value })}
-                      >
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                      </CFormSelect>
-                    </CInputGroup>
-                    <CInputGroup className="mb-3">
                       <CInputGroupText component="label" htmlFor="cctv">
                         CCTV
                       </CInputGroupText>
@@ -382,14 +278,14 @@ class EditOffice extends Component {
                       </CFormSelect>
                     </CInputGroup>
                     <CInputGroup className="mb-3">
-                      <CInputGroupText component="label" htmlFor="wifi">
-                        Wifi
+                      <CInputGroupText component="label" htmlFor="security">
+                        Security
                       </CInputGroupText>
                       <CFormSelect
-                        id="wifi"
-                        name="wifi"
-                        value={this.state.wifi}
-                        onChange={(e) => this.setState({ wifi: e.target.value })}
+                        id="security"
+                        name="security"
+                        value={this.state.security}
+                        onChange={(e) => this.setState({ security: e.target.value })}
                       >
                         <option value="true">Yes</option>
                         <option value="false">No</option>
@@ -457,7 +353,7 @@ class EditOffice extends Component {
                     </CInputGroup>
                     <div className="d-grid">
                       <CButton color="success" onClick={(e) => this.handleFormSubmit(e)}>
-                        Update Office Details
+                        Update Warehouse Details
                       </CButton>
                     </div>
                   </CForm>
@@ -470,4 +366,4 @@ class EditOffice extends Component {
     )
   }
 }
-export default withRouter(EditOffice)
+export default withRouter(EditWarehouse)

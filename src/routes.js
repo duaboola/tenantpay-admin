@@ -54,6 +54,7 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 //const Home = React.lazy(() => import('./views/pages/home/Home'))
 const Createuser = React.lazy(() => import('./views/users/Create'))
 const ListUser = React.lazy(() => import('./views/users/List'))
+const UserDetails = React.lazy(() => import('./views/users/Details'))
 const EditUser = React.lazy(() => import('./views/users/Edit'))
 const UpdateUser = React.lazy(() => import('./views/users/Update'))
 const All = React.lazy(() => import('./views/properties/All/All'))
@@ -68,16 +69,36 @@ const EditFlat = React.lazy(() => import('./views/properties/Flat/Edit'))
 const Office = React.lazy(() => import('./views/properties/Office/Office'))
 const OfficeList = React.lazy(() => import('./views/properties/Office/List'))
 const OfficeDetails = React.lazy(() => import('./views/properties/Office/Details'))
+const OfficeImages = React.lazy(() => import('./views/properties/Office/Images'))
+const AddOfficeImage = React.lazy(() => import('./views/properties/Office/Add'))
 const CreateOffice = React.lazy(() => import('./views/properties/Office/Create'))
+const EditOffice = React.lazy(() => import('./views/properties/Office/Edit'))
 const Shop = React.lazy(() => import('./views/properties/Shop/Shop'))
 const ShopList = React.lazy(() => import('./views/properties/Shop/List'))
+const ShopDetails = React.lazy(() => import('./views/properties/Shop/Details'))
+const ShopImages = React.lazy(() => import('./views/properties/Shop/Images'))
+const AddShopImage = React.lazy(() => import('./views/properties/Shop/Add'))
 const CreateShop = React.lazy(() => import('./views/properties/Shop/Create'))
+const EditShop = React.lazy(() => import('./views/properties/Shop/Edit'))
 const Villa = React.lazy(() => import('./views/properties/Villa/Villa'))
 const VillaList = React.lazy(() => import('./views/properties/Villa/List'))
+const VillaDetails = React.lazy(() => import('./views/properties/Villa/Details'))
+const VillaImages = React.lazy(() => import('./views/properties/Villa/Images'))
+const AddVillaImage = React.lazy(() => import('./views/properties/Villa/Add'))
 const CreateVilla = React.lazy(() => import('./views/properties/Villa/Create'))
+const EditVilla = React.lazy(() => import('./views/properties/Villa/Edit'))
 const Warehouse = React.lazy(() => import('./views/properties/Warehouse/Warehouse'))
 const WarehouseList = React.lazy(() => import('./views/properties/Warehouse/List'))
+const WarehouseDetails = React.lazy(() => import('./views/properties/Warehouse/Details'))
+const WarehouseImages = React.lazy(() => import('./views/properties/Warehouse/Images'))
+const AddWarehouseImage = React.lazy(() => import('./views/properties/Warehouse/Add'))
 const CreateWarehouse = React.lazy(() => import('./views/properties/Warehouse/Create'))
+const EditWarehouse = React.lazy(() => import('./views/properties/Warehouse/Edit'))
+const InterestList = React.lazy(() => import('./views/properties/Interest/List'))
+const InterestDetails = React.lazy(() => import('./views/properties/Interest/Details'))
+const MaintenanceList = React.lazy(() => import('./views/properties/Maintenance/List'))
+const MaintenanceDetails = React.lazy(() => import('./views/properties/Maintenance/Details'))
+const SelectDevice = React.lazy(() => import('./views/properties/Notifications/Select'))
 const AddImage = React.lazy(() => import('./views/properties/Gallery/Add'))
 
 const routes = [
@@ -89,6 +110,7 @@ const routes = [
   { path: '/user/list', name: 'List Users', element: ListUser },
   { path: '/user/edit', name: 'Edit User', element: EditUser },
   { path: '/user/update:id', name: 'Update User', element: UpdateUser },
+  { path: '/user/details:id', name: 'User Details', element: UserDetails },
 
   { path: '/properties/all', name: 'All Properties', element: All },
   { path: '/properties/all/list', name: 'All Properties List', element: AllList },
@@ -103,20 +125,55 @@ const routes = [
 
   { path: '/properties/office', name: 'Office', element: Office },
   { path: '/properties/office/list', name: 'Office List', element: OfficeList },
-  { path: '/properties/office/details:id', name: 'Flat Details', element: OfficeDetails },
+  { path: '/properties/office/details:id', name: 'Office Details', element: OfficeDetails },
+  { path: '/properties/office/images:id', name: 'Office Gallery', element: OfficeImages },
+  { path: '/properties/office/images/add:id', name: 'Add Office Image', element: AddOfficeImage },
   { path: '/properties/office/create', name: 'Create Office', element: CreateOffice },
+  { path: '/properties/office/edit:id', name: 'Edit Office', element: EditOffice },
 
   { path: '/properties/shop', name: 'Shop', element: Shop },
   { path: '/properties/shop/list', name: 'Shop List', element: ShopList },
+  { path: '/properties/shop/details:id', name: 'Shop Details', element: ShopDetails },
+  { path: '/properties/shop/images:id', name: 'Shop Gallery', element: ShopImages },
+  { path: '/properties/shop/images/add:id', name: 'Add Shop Image', element: AddShopImage },
   { path: '/properties/shop/create', name: 'Create Shop', element: CreateShop },
+  { path: '/properties/shop/edit:id', name: 'Edit Shop', element: EditShop },
 
   { path: '/properties/villa', name: 'Villa', element: Villa },
   { path: '/properties/villa/list', name: 'Villa List', element: VillaList },
+  { path: '/properties/villa/details:id', name: 'Villa Details', element: VillaDetails },
+  { path: '/properties/villa/images:id', name: 'Villa Gallery', element: VillaImages },
+  { path: '/properties/villa/images/add:id', name: 'Add Villa Image', element: AddVillaImage },
   { path: '/properties/villa/create', name: 'Create Villa', element: CreateVilla },
+  { path: '/properties/villa/edit:id', name: 'Edit Villa', element: EditVilla },
 
   { path: '/properties/warehouse', name: 'Warehouse', element: Warehouse },
   { path: '/properties/warehouse/list', name: 'Warehouse List', element: WarehouseList },
+  {
+    path: '/properties/warehouse/details:id',
+    name: 'Warehouse Details',
+    element: WarehouseDetails,
+  },
+  { path: '/properties/warehouse/images:id', name: 'Warehouse Gallery', element: WarehouseImages },
+  {
+    path: '/properties/warehouse/images/add:id',
+    name: 'Add Warehouse Image',
+    element: AddWarehouseImage,
+  },
   { path: '/properties/warehouse/create', name: 'Create Warehouse', element: CreateWarehouse },
+  { path: '/properties/warehouse/edit:id', name: 'Edit Warehouse', element: EditWarehouse },
+
+  { path: '/properties/interest/list', name: 'Interest List', element: InterestList },
+  { path: '/properties/interest/details:id', name: 'Interest Details', element: InterestDetails },
+
+  { path: '/properties/maintenance/list', name: 'Maintenance List', element: MaintenanceList },
+  {
+    path: '/properties/maintenance/details:id',
+    name: 'Maintenance Details',
+    element: MaintenanceDetails,
+  },
+
+  { path: '/notifications/create', name: 'Create Notification', element: SelectDevice },
 
   { path: '/properties/gallery/add', name: 'Add Images', element: AddImage },
 

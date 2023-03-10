@@ -1,5 +1,7 @@
 import React from 'react'
 import API from 'src/api'
+import UserFilterList from 'src/components/UserFilterList'
+import { Link } from 'react-router-dom'
 
 class UserList extends React.Component {
   state = {
@@ -59,6 +61,7 @@ class UserList extends React.Component {
 
         <div className="col-md-8">
           <h3>User Table</h3>
+          <UserFilterList />
           <table className="table table-bordered table-striped">
             <thead>
               <tr>
@@ -70,6 +73,7 @@ class UserList extends React.Component {
                 <th>CPR</th>
                 <th>Mobile</th>
                 <th>User Type</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -83,6 +87,11 @@ class UserList extends React.Component {
                   <td>{user.cpr}</td>
                   <td>{user.mobile}</td>
                   <td>{user.usertype}</td>
+                  <td>
+                    <Link to={`/user/details:${user.id}`} className="btn btn-dark btn-xs">
+                      Details
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>

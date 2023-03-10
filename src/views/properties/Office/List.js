@@ -10,7 +10,7 @@ import {
 } from '@coreui/react'
 import API from 'src/api'
 import { Link } from 'react-router-dom'
-import OfficeFilterList from 'src/components/FilterList'
+import OfficeFilterList from 'src/components/OfficeFilterList'
 
 class OfficeList extends React.Component {
   constructor(props) {

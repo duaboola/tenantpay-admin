@@ -26,7 +26,7 @@ function OfficeFilterList() {
   }
 
   function fetchData() {
-    fetch('http://192.168.100.96:8888/tenantpay/prop/office/admin_list.php')
+    fetch('http://192.168.100.96:8888/tenantpay/prop/warehouse/admin_list.php')
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
@@ -42,7 +42,7 @@ function OfficeFilterList() {
   useEffect(() => {
     const filteredList = MY_LIST.filter((item) => {
       let all_str =
-        `${item.id} ${item.office_name} ${item.building_name} ${item.address} ${item.location} ${item.owner_email}`.toLowerCase()
+        `${item.id} ${item.warehouse_name} ${item.building_name} ${item.address} ${item.location} ${item.owner_email}`.toLowerCase()
       //return all_str.indexOf(search) > -1 // View All When Search Empty
       return all_str.indexOf(search) > -1 && search
     })
@@ -57,13 +57,13 @@ function OfficeFilterList() {
           type="text"
           className="form-control"
           defaultValue={search}
-          placeholder="Enter Office or Building or Location"
+          placeholder="Enter Warehouse or Location"
           onKeyUp={onKeyUpHandler}
         />
       </div>
       {/* <div>
         <h6>
-          Selected Item : {selected.id}) {selected.office_name} , {selected.building_name} ,
+          Selected Item : {selected.id}) {selected.warehouse_name} , {selected.building_name} ,
           {selected.location}
         </h6>
       </div> */}
@@ -78,10 +78,7 @@ function OfficeFilterList() {
                 <div>{item.owner_email}</div>
               </CTableDataCell>
               <CTableDataCell>
-                <div>{item.office_name}</div>
-              </CTableDataCell>
-              <CTableDataCell>
-                <div>{item.building_name}</div>
+                <div>{item.warehouse_name}</div>
               </CTableDataCell>
               <CTableDataCell>
                 <div>{item.location}</div>
@@ -101,7 +98,7 @@ function OfficeFilterList() {
               <CTableDataCell>
                 <div>
                   <Link
-                    to={`/properties/office/details:${item.id}`}
+                    to={`/properties/warehouse/details:${item.id}`}
                     className="btn btn-dark btn-xs"
                   >
                     Details

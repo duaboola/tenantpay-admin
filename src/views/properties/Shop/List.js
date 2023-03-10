@@ -10,6 +10,9 @@ import {
 } from '@coreui/react'
 import API from 'src/api'
 
+import { Link } from 'react-router-dom'
+import ShopFilterList from 'src/components/ShopFilterList'
+
 class ShopList extends React.Component {
   state = {
     id: '',
@@ -47,7 +50,7 @@ class ShopList extends React.Component {
     return (
       <div className="container">
         <h1 className="page-header text-center">Property Management</h1>
-
+        <ShopFilterList />
         <div className="">
           <h3>Shop</h3>
           <CCardBody>
@@ -59,19 +62,10 @@ class ShopList extends React.Component {
                   <CTableHeaderCell>Shop</CTableHeaderCell>
                   <CTableHeaderCell>Location</CTableHeaderCell>
                   <CTableHeaderCell>Address</CTableHeaderCell>
-                  <CTableHeaderCell>Rooms</CTableHeaderCell>
-                  <CTableHeaderCell>Size</CTableHeaderCell>
-                  <CTableHeaderCell>EWA</CTableHeaderCell>
-                  <CTableHeaderCell>Furnished</CTableHeaderCell>
-                  <CTableHeaderCell>Parking</CTableHeaderCell>
-                  <CTableHeaderCell>CCTV</CTableHeaderCell>
-                  <CTableHeaderCell>Wifi</CTableHeaderCell>
-                  <CTableHeaderCell>Description</CTableHeaderCell>
                   <CTableHeaderCell>Price</CTableHeaderCell>
                   <CTableHeaderCell>Tenant Email</CTableHeaderCell>
                   <CTableHeaderCell>Mobile</CTableHeaderCell>
-                  <CTableHeaderCell>Start Date</CTableHeaderCell>
-                  <CTableHeaderCell>End Date</CTableHeaderCell>
+                  <CTableHeaderCell>Action</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>
@@ -93,30 +87,6 @@ class ShopList extends React.Component {
                       <div>{property.address}</div>
                     </CTableDataCell>
                     <CTableDataCell>
-                      <div>{property.rooms}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.size}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.ewa}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.furnished}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.parking}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.cctv}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.wifi}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.description}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
                       <div>{property.price}</div>
                     </CTableDataCell>
                     <CTableDataCell>
@@ -126,10 +96,14 @@ class ShopList extends React.Component {
                       <div>{property.mobile}</div>
                     </CTableDataCell>
                     <CTableDataCell>
-                      <div>{property.start_date}</div>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <div>{property.end_date}</div>
+                      <div>
+                        <Link
+                          to={`/properties/shop/details:${property.id}`}
+                          className="btn btn-dark btn-xs"
+                        >
+                          Details
+                        </Link>
+                      </div>
                     </CTableDataCell>
                   </CTableRow>
                 ))}

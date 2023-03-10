@@ -19,7 +19,7 @@ class AllList extends React.Component {
   }
 
   componentDidMount() {
-    const url = '/api/properties/all/all.php'
+    const url = '/prop/all/admin_list.php'
     API.get(url)
       .then((response) => response.data)
       .then((data) => {

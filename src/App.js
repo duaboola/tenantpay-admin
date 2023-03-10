@@ -9,6 +9,17 @@ const loading = (
   </div>
 )
 
+// const [isTokenFound, setTokenFound] = useState(false);
+// getToken(setTokenFound);
+
+// // inside the jsx being returned:
+// {isTokenFound &&
+// //  Notification permission enabled 👍🏻
+// }
+// {!isTokenFound &&
+// //  Need notification permission ❗️
+// }
+
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 

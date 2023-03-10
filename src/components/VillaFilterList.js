@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 let MY_LIST = []
 
-function OfficeFilterList() {
+function VillaFilterList() {
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState({})
   const [filterlist, setFilterlist] = useState(MY_LIST)
@@ -26,7 +26,7 @@ function OfficeFilterList() {
   }
 
   function fetchData() {
-    fetch('http://192.168.100.96:8888/tenantpay/prop/office/admin_list.php')
+    fetch('http://192.168.100.96:8888/tenantpay/prop/villa/admin_list.php')
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
@@ -42,7 +42,7 @@ function OfficeFilterList() {
   useEffect(() => {
     const filteredList = MY_LIST.filter((item) => {
       let all_str =
-        `${item.id} ${item.office_name} ${item.building_name} ${item.address} ${item.location} ${item.owner_email}`.toLowerCase()
+        `${item.id} ${item.name} ${item.building_name} ${item.type} ${item.address} ${item.location} ${item.owner_id}`.toLowerCase()
       //return all_str.indexOf(search) > -1 // View All When Search Empty
       return all_str.indexOf(search) > -1 && search
     })
@@ -57,13 +57,13 @@ function OfficeFilterList() {
           type="text"
           className="form-control"
           defaultValue={search}
-          placeholder="Enter Office or Building or Location"
+          placeholder="Enter Villa or Building or Location"
           onKeyUp={onKeyUpHandler}
         />
       </div>
       {/* <div>
         <h6>
-          Selected Item : {selected.id}) {selected.office_name} , {selected.building_name} ,
+          Selected Item : {selected.id}) {selected.villa_name} , {selected.building_name} ,
           {selected.location}
         </h6>
       </div> */}
@@ -75,13 +75,10 @@ function OfficeFilterList() {
                 <div>{item.id}</div>
               </CTableDataCell>
               <CTableDataCell>
-                <div>{item.owner_email}</div>
+                <div>{item.owner_id}</div>
               </CTableDataCell>
               <CTableDataCell>
-                <div>{item.office_name}</div>
-              </CTableDataCell>
-              <CTableDataCell>
-                <div>{item.building_name}</div>
+                <div>{item.name}</div>
               </CTableDataCell>
               <CTableDataCell>
                 <div>{item.location}</div>
@@ -100,10 +97,7 @@ function OfficeFilterList() {
               </CTableDataCell>
               <CTableDataCell>
                 <div>
-                  <Link
-                    to={`/properties/office/details:${item.id}`}
-                    className="btn btn-dark btn-xs"
-                  >
+                  <Link to={`/properties/villa/details:${item.id}`} className="btn btn-dark btn-xs">
                     Details
                   </Link>
                 </div>
@@ -112,8 +106,20 @@ function OfficeFilterList() {
           ))}
         </CTableBody>
       </CTable>
+      {/* //   <ul className="list-group">
+    //     {filterlist.map((item, key) => (
+    //       <li
+    //         className="list-group-item"
+    //         key={key}
+    //         value={item.id}
+    //         onClick={(e) => onSelectItem(e, item)}
+    //       >
+    //         {item.id}) {item.villa_name} , {item.building_name} , {item.location}
+    //       </li>
+    //     ))}
+    //   </ul> */}
     </div>
   )
 }
 
-export default OfficeFilterList
+export default VillaFilterList
