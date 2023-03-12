@@ -80,7 +80,7 @@ function UserFilterList() {
               <td>{item.mobile}</td>
               <td>{item.usertype}</td>
               <td>
-                <Link to={`/users/details:${item.id}`} className="btn btn-dark btn-xs">
+                <Link to={`/user/details:${item.id}`} className="btn btn-dark btn-xs">
                   Details
                 </Link>
               </td>

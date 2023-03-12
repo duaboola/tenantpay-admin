@@ -14,6 +14,7 @@ import {
 } from '@coreui/react'
 import API from 'src/api'
 import { useParams } from 'react-router-dom'
+import SelectUser from './User'
 
 export function withRouter(Children) {
   // eslint-disable-next-line react/display-name
@@ -30,6 +31,7 @@ class SelectDevice extends Component {
       title: '',
       target: '',
       body: '',
+      user: '',
       resposeArray: [],
     }
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -50,6 +52,7 @@ class SelectDevice extends Component {
     formData.append('target', this.state.target)
     formData.append('title', this.state.title)
     formData.append('body', this.state.body)
+    formData.append('user', this.state.user)
 
     // const url = '/prop/shop/add_shop_image.php'
     API({
@@ -70,6 +73,7 @@ class SelectDevice extends Component {
   }
 
   render() {
+    const { target } = this.state
     return (
       <div className="bg-light d-flex flex-row align-items-center">
         <CContainer>
@@ -115,6 +119,7 @@ class SelectDevice extends Component {
                         onChange={(e) => this.setState({ body: e.target.value })}
                       />
                     </CInputGroup>
+                    <div>{target === 'Other' && <SelectUser />}</div>
                     <div className="d-grid">
                       <CButton color="success" onClick={(e) => this.handleFormSubmit(e)}>
                         Send Notification
