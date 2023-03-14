@@ -34,7 +34,23 @@ class SelectDevice extends Component {
       user: '',
       resposeArray: [],
     }
+    this.headers = [
+      { key: 'id', label: 'Id' },
+      { key: 'email', label: 'Email' },
+      { key: 'fname', label: 'First Name' },
+      { key: 'lname', label: 'Last Name' },
+    ]
     this.handleInputChange = this.handleInputChange.bind(this)
+  }
+
+  componentDidMount() {
+    const url = 'users/list.php'
+    API.get(url)
+      .then((response) => response.data)
+      .then((data) => {
+        this.setState({ users: data })
+        console.log(this.state.users)
+      })
   }
 
   handleInputChange(event) {

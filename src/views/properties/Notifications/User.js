@@ -8,7 +8,7 @@ import { CFormCheck } from '@coreui/react'
 class SelectUser extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { users: [], u: '' }
+    this.state = { users: [], user: '' }
     this.headers = [
       { key: 'id', label: 'Id' },
       { key: 'email', label: 'Email' },
